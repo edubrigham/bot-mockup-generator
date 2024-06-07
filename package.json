@@ -1,4 +1,16 @@
 {
+  "name": "byod-bot-mockup-generator",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server/index.js",
+    "start-dev": "nodemon server/index.js --watch server",
+    "client": "npm start --prefix client",
+    "server": "node server/index.js",
+    "install-client": "npm install --prefix client",
+    "install-server": "npm install --prefix server",
+    "build": "npm run build --prefix client",
+    "postinstall": "npm run install-client && npm run install-server && npm run build"
+  },
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "bcrypt": "^5.1.1",

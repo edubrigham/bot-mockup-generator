@@ -5,7 +5,7 @@ const corsOptions = require('./middleware/corsConfig');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
-const session = require('express-session'); // Import express-session
+const session = require('express-session');
 const errorLogger = require('./middleware/errorLogger');
 
 const authRoutes = require('./routes/auth');
@@ -15,6 +15,9 @@ const projectRoutes = require('./routes/projects');
 
 const app = express();
 const port = process.env.PORT || 3001;
+
+// Log SESSION_SECRET to verify it's being loaded correctly
+console.log('SESSION_SECRET:', process.env.SESSION_SECRET);
 
 // Apply CORS, JSON body parsing, and cookie parsing
 app.use(cors(corsOptions));
@@ -51,6 +54,14 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/mockups', mockupRoutes);
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(errorLogger); // Use the error logging middleware
+
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+// Handles any requests that don't match the ones above
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

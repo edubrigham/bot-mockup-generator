@@ -9,7 +9,7 @@ const extraRules = require('@duckduckgo/autoconsent/rules/rules.json');
 
 
 // Using .env for assets base path
-const ASSETS_BASE_PATH = process.env.ASSETS_BASE_PATH
+const ASSETS_BASE_PATH = path.resolve(__dirname, process.env.ASSETS_BASE_PATH || '../assets'); // Resolve to an absolute path
 const SCREENSHOTS_FOLDER = path.join(ASSETS_BASE_PATH, 'screenshots');
 fs.ensureDirSync(SCREENSHOTS_FOLDER);
 
