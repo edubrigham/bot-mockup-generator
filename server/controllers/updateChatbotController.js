@@ -1,11 +1,8 @@
-// server/controllers/updateChatbotController.js
 const { HTML_FILES_FOLDER } = require('../config/paths');
 console.log('HTML_FILES_FOLDER:', HTML_FILES_FOLDER);
 const fs = require('fs-extra');
 const path = require('path');
 const { pool } = require('../config/db');
-
-
 
 async function injectChatbotScript(mockupId, chatbotScript) {
     try {
